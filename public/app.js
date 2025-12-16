@@ -2,11 +2,42 @@
  * Клиентская логика для Telegram Mini App "Ставки от AI"
  * Обработка загрузки файлов, анимации и взаимодействие с API
  */
+// Применяем тему Telegram
+if (tg.themeParams) {
+    document.documentElement.style.setProperty('--tg-theme-bg-color', tg.themeParams.bg_color);
+    document.documentElement.style.setProperty('--tg-theme-text-color', tg.themeParams.text_color);
+    document.documentElement.style.setProperty('--tg-theme-hint-color', tg.themeParams.hint_color);
+    document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color);
+}
+
 
 // ==================== Telegram WebApp API ====================
-let tg = window.Telegram.WebApp;
-tg.expand();
-tg.ready();
+let tg = window.Telegram?.WebApp || {
+    expand: () => console.log('Mock expand'),
+    ready: () => console.log('Mock ready'),
+    themeParams: {},
+    HapticFeedback: {
+        impactOccurred: () => {},
+        notificationOccurred: () => {}
+    },
+    MainButton: {
+        show: () => {},
+        hide: () => {},
+        setText: () => {},
+        enable: () => {},
+        onClick: () => {}
+    }
+};
+
+console.log('Telegram WebApp available:', !!window.Telegram?.WebApp);
+
+if (window.Telegram?.WebApp) {
+    tg.expand();
+    tg.ready();
+    console.log('✅ Telegram WebApp initialized');
+} else {
+    console.warn('⚠️ Telegram WebApp not available - using fallback');
+}
 
 // Применяем тему Telegram
 if (tg.themeParams) {
