@@ -10,7 +10,6 @@ if (tg.themeParams) {
     document.documentElement.style.setProperty('--tg-theme-button-color', tg.themeParams.button_color);
 }
 
-
 // ==================== Telegram WebApp API ====================
 let tg = window.Telegram?.WebApp || {
     expand: () => console.log('Mock expand'),
