@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0f0f1e">
+    <title>Ставки от AI</title>
+        <link rel="stylesheet" href="style.css?v=1">
+        <script src="app.js?v=1"></script>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-wrapper">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1 class="logo-text">
+                    <span class="gradient-text">Ставки от AI</span>
+                </h1>
+            </div>
+            <p class="subtitle">Умный анализ спортивных событий</p>
+        </header>
+
+        <!-- Upload Area -->
+        <div class="upload-section">
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-content" id="uploadContent">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M17 8L12 3L7 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h3 class="upload-title">Загрузите изображение</h3>
+                    <p class="upload-description">Нажмите или перетащите файл сюда</p>
+                    <p class="upload-hint">Или вставьте скриншот с клавиатуры <kbd>Ctrl+V</kbd></p>
+                    <div class="supported-formats">
+                        <span>JPEG</span>
+                        <span>PNG</span>
+                        <span>GIF</span>
+                        <span>WebP</span>
+                    </div>
+                </div>
+                
+                <div class="preview-container" id="previewContainer" style="display: none;">
+                    <div class="preview-image-wrapper">
+                        <img id="previewImage" alt="Preview">
+                        <button class="remove-image" id="removeImage" title="Удалить">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="preview-info">
+                        <span class="file-name" id="fileName">image.jpg</span>
+                        <span class="file-size" id="fileSize">2.5 MB</span>
+                    </div>
+                </div>
+
+                <input type="file" id="fileInput" accept="image/jpeg,image/jpg,image/png,image/gif,image/webp" style="display: none;">
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="actions">
+                <button class="btn btn-primary" id="analyzeBtn" disabled>
+                    <span class="btn-content">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span id="btnText">Проанализировать ставку</span>
+                    </span>
+                    <span class="btn-loader" id="btnLoader">
+                        <span class="spinner"></span>
+                        <span>Анализирую...</span>
+                    </span>
+                </button>
+
+                <button class="btn btn-secondary" id="quickBtn">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Быстрый прогноз</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Result Card -->
+        <div class="result-card" id="resultCard">
+            <div class="result-header">
+                <div class="result-icon" id="resultIcon">🎯</div>
+                <h2 class="result-title">Рекомендация</h2>
+            </div>
+
+            <div class="result-body">
+                <div class="bet-type-section">
+                    <label class="result-label">Ставить нужно на:</label>
+                    <div class="bet-type" id="betType">Тотал больше 2.5</div>
+                </div>
+
+                <div class="reason-section">
+                    <label class="result-label">Причина:</label>
+                    <p class="reason-text" id="reasonText">
+                        Оба коллектива продемонстрировали хорошие атакующие действия в последних матчах
+                    </p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card stat-probability">
+                        <div class="stat-label">Вероятность захода</div>
+                        <div class="stat-value" id="probability">85%</div>
+                        <div class="stat-bar">
+                            <div class="stat-bar-fill" id="probabilityBar"></div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-confidence">
+                        <div class="stat-label">Уверенность</div>
+                        <div class="stat-value" id="confidence">8/10</div>
+                        <div class="stat-stars" id="confidenceStars">
+                            ⭐⭐⭐⭐⭐⭐⭐⭐
+                        </div>
+                    </div>
+                </div>
+
+                <div class="analysis-section">
+                    <label class="result-label">Детальный анализ:</label>
+                    <p class="analysis-text" id="analysisText">
+                        Очень высокая вероятность прохода. Рекомендуется включить в экспресс.
+                    </p>
+                </div>
+
+                <div class="disclaimer">
+                    <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8V12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="12" cy="16" r="0.5" fill="currentColor" stroke="currentColor"/>
+                    </svg>
+                    <span>Прогноз сгенерирован случайно в развлекательных целях. Не используйте для реальных ставок!</span>
+                </div>
+            </div>
+
+            <button class="btn btn-ghost" id="newPredictionBtn">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20.49 9C19.9828 7.56678 19.1209 6.28536 17.9845 5.27542C16.8482 4.26548 15.4745 3.55976 13.9917 3.22426C12.5089 2.88875 10.9652 2.93434 9.50481 3.35677C8.04437 3.77921 6.71475 4.56471 5.64 5.64L1 10M23 14L18.36 18.36C17.2853 19.4353 15.9556 20.2208 14.4952 20.6432C13.0348 21.0657 11.4911 21.1112 10.0083 20.7757C8.52547 20.4402 7.1518 19.7345 6.01547 18.7246C4.87913 17.7146 4.01717 16.4332 3.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>Новый прогноз</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-text">
+                Создано с помощью <span class="gradient-text">AI технологий</span>
+            </p>
+            <p class="footer-version">v1.0.0 • 2025</p>
+        </footer>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+        </div>
+        <p class="loading-text">Анализирую данные...</p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
